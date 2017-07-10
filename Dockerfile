@@ -7,4 +7,9 @@ RUN git clone https://github.com/lnls-dig/rsfsv-epics-ioc.git /opt/epics/rsfsv &
     sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps_5_8/support|' configure/RELEASE && \
     sed -i -e 's|^ASYN=.*$|ASYN=$(SUPPORT)/asyn-4-26|' configure/RELEASE && \
     sed -i -e 's|^STREAM=.*$|STREAM=/opt/epics/stream|' configure/RELEASE && \
-    make
+    make install
+
+ENV EPICS_HOST_ARCH=linux-x86_64
+WORKDIR /opt/epics/rsfsv/iocBoot/iocrsfsv
+
+ENTRYPOINT ["/opt/epics/rsfsv/iocBoot/iocrsfsv/run.sh"]
