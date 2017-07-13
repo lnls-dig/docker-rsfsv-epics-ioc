@@ -2,7 +2,7 @@ FROM lnlsdig/epics-stream_2_7_7
 
 RUN git clone https://github.com/lnls-dig/rsfsv-epics-ioc.git /opt/epics/rsfsv && \
     cd /opt/epics/rsfsv && \
-    git checkout b5897d634ff0409b740c7f26365b94c30c63df9d && \
+    git checkout e0e496f3f880dc1ccbb67edbe94169b374169a05 && \
     sed -i -e 's|^[#]*EPICS_BASE=.*$|EPICS_BASE=/opt/epics/base|' configure/RELEASE && \
     sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps_5_8/support|' configure/RELEASE && \
     sed -i -e 's|^ASYN=.*$|ASYN=$(SUPPORT)/asyn-4-26|' configure/RELEASE && \
