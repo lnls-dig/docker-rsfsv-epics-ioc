@@ -2,7 +2,7 @@ Docker image for the Rohde&Schwarz FSV Spectrum Analyzer EPICS IOC
 ==================================================================
 
 This repository contains the Dockerfile used to create the Docker image with the
-EPICS IOC for the Rohde & Schwarz FSV.
+[EPICS IOC for the Rohde & Schwarz FSV](https://github.com/lnls-dig/rsfsv-epics-ioc).
 
 ## Running the IOC
 
