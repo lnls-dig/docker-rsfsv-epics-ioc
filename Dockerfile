@@ -1,15 +1,23 @@
-FROM lnlsdig/epics-stream_2_7_7
+FROM lnls/epics-dist:debian-9.2
 
-RUN git clone https://github.com/lnls-dig/rsfsv-epics-ioc.git /opt/epics/rsfsv && \
-    cd /opt/epics/rsfsv && \
-    git checkout e0e496f3f880dc1ccbb67edbe94169b374169a05 && \
-    sed -i -e 's|^[#]*EPICS_BASE=.*$|EPICS_BASE=/opt/epics/base|' configure/RELEASE && \
+ENV IOC_REPO rsfsv-epics-ioc
+ENV BOOT_DIR iocrsfsv
+ENV COMMIT v1.0.0
+
+RUN git clone https://github.com/lnls-dig/${IOC_REPO}.git /opt/epics/${IOC_REPO} && \
+    cd /opt/epics/${IOC_REPO} && \
+    git checkout ${COMMIT} && \
+    sed -i -e 's|^EPICS_BASE=.*$|EPICS_BASE=/opt/epics/base|' configure/RELEASE && \
     sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps_5_8/support|' configure/RELEASE && \
-    sed -i -e 's|^ASYN=.*$|ASYN=$(SUPPORT)/asyn-4-26|' configure/RELEASE && \
     sed -i -e 's|^STREAM=.*$|STREAM=/opt/epics/stream|' configure/RELEASE && \
-    make install
+    make && \
+    make install && \
+    make clean
 
-ENV EPICS_HOST_ARCH=linux-x86_64
-WORKDIR /opt/epics/rsfsv/iocBoot/iocrsfsv
+# Source environment variables until we figure it out
+# where to put system-wide env-vars on docker-debian
+RUN . /root/.bashrc
 
-ENTRYPOINT ["/opt/epics/rsfsv/iocBoot/iocrsfsv/run.sh"]
+WORKDIR /opt/epics/startup/ioc/${IOC_REPO}/iocBoot/${BOOT_DIR}
+
+ENTRYPOINT ["./runProcServ.sh"]
