@@ -3,19 +3,17 @@
 set -u
 
 if [ -z "$RSFSV_INSTANCE" ]; then
-    echo "Device instance is not set. Please use -d option" >&2
+    echo "RSFSV_INSTANCE environment variable is not set." >&2
     exit 1
 fi
 
 export RSFSV_CURRENT_PV_AREA_PREFIX=RSFSV_${RSFSV_INSTANCE}_PV_AREA_PREFIX
 export RSFSV_CURRENT_PV_DEVICE_PREFIX=RSFSV_${RSFSV_INSTANCE}_PV_DEVICE_PREFIX
 export RSFSV_CURRENT_DEVICE_IP=RSFSV_${RSFSV_INSTANCE}_DEVICE_IP
-export RSFSV_CURRENT_DEVICE_PORT=RSFSV_${RSFSV_INSTANCE}_DEVICE_PORT
 # Only works with bash
 export EPICS_PV_AREA_PREFIX=${!RSFSV_CURRENT_PV_AREA_PREFIX}
 export EPICS_PV_DEVICE_PREFIX=${!RSFSV_CURRENT_PV_DEVICE_PREFIX}
 export EPICS_DEVICE_IP=${!RSFSV_CURRENT_DEVICE_IP}
-export EPICS_DEVICE_PORT=${!RSFSV_CURRENT_DEVICE_PORT}
 
 # Create volume for autosave and ignore errors
 /usr/bin/docker create \
@@ -37,7 +35,6 @@ export EPICS_DEVICE_PORT=${!RSFSV_CURRENT_DEVICE_PORT}
     --name rsfsv-epics-ioc-${RSFSV_INSTANCE} \
     lnlsdig/rsfsv-epics-ioc:${IMAGE_VERSION} \
     -i ${EPICS_DEVICE_IP} \
-    -p ${EPICS_DEVICE_PORT} \
     -d ${RSFSV_INSTANCE} \
     -P ${EPICS_PV_AREA_PREFIX} \
     -R ${EPICS_PV_DEVICE_PREFIX} \

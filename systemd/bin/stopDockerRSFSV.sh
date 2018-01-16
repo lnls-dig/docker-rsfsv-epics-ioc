@@ -3,7 +3,7 @@
 set -u
 
 if [ -z "$RSFSV_INSTANCE" ]; then
-    echo "Device instance is not set. Please use -d option" >&2
+    echo "RSFSV_INSTANCE environment variable is not set." >&2
     exit 1
 fi
 
