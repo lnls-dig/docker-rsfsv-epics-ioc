@@ -1,0 +1,19 @@
+[Unit]
+Description=RSFSV container instance %I
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=2
+EnvironmentFile=/etc/sysconfig/docker-rsfsv-epics-ioc
+EnvironmentFile=/etc/sysconfig/docker-rsfsv-epics-ioc-mapping
+Environment=IMAGE_VERSION=debian-9
+# Used inside runDockerRSFSV script
+Environment=RSFSV_INSTANCE=%i
+ExecStartPre=-/usr/bin/docker pull lnlsdig/rsfsv-epics-ioc:${IMAGE_VERSION}
+ExecStart=/usr/local/bin/runDockerRSFSV.sh
+ExecStop=/usr/local/bin/stopDockerRSFSV.sh
+
+[Install]
+WantedBy=multi-user.target
