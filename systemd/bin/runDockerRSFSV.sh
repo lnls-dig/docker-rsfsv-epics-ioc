@@ -34,6 +34,6 @@ export EPICS_DEVICE_IP=${!RSFSV_CURRENT_DEVICE_IP}
     --volumes-from rsfsv-epics-ioc-${RSFSV_INSTANCE}-volume \
     --name rsfsv-epics-ioc-${RSFSV_INSTANCE} \
     lnlsdig/rsfsv-epics-ioc:${IMAGE_VERSION} \
-    -i ${EPICS_DEVICE_IP} \
-    -P ${EPICS_PV_AREA_PREFIX} \
-    -R ${EPICS_PV_DEVICE_PREFIX} \
+    -i "${EPICS_DEVICE_IP}" \
+    -P "${EPICS_PV_AREA_PREFIX}" \
+    -R "${EPICS_PV_DEVICE_PREFIX}" \
