@@ -2,7 +2,7 @@ FROM lnls/epics-dist:debian-9.2
 
 ENV IOC_REPO rsfsv-epics-ioc
 ENV BOOT_DIR iocrsfsv
-ENV COMMIT v1.0.0
+ENV COMMIT v1.1.0
 
 RUN git clone https://github.com/lnls-dig/${IOC_REPO}.git /opt/epics/${IOC_REPO} && \
     cd /opt/epics/${IOC_REPO} && \
