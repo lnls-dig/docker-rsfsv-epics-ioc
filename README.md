@@ -1,3 +1,5 @@
+# !! WARNING !! DEPRECATED REPOSITORY. USE NEW REPOSIORY https://github.com/lnls-dig/docker-rsfsx-epics-ioc
+
 Docker image for the Rohde&Schwarz FSV Spectrum Analyzer EPICS IOC
 ==================================================================
 
